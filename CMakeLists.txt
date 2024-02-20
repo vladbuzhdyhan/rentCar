@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(rentCar main.cpp
         Car.cpp
-        Car.h)
+        Car.h
+        Customer.cpp
+        Customer.h)
