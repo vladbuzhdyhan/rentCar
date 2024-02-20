@@ -7,4 +7,6 @@ add_executable(rentCar main.cpp
         Car.cpp
         Car.h
         Customer.cpp
-        Customer.h)
+        Customer.h
+        Rent.cpp
+        Rent.h)
