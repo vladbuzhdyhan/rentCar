@@ -2,6 +2,7 @@
 #define RENTCAR_CUSTOMER_H
 
 #include <string>
+#include <ostream>
 
 class Customer {
     std::string _name;
@@ -9,11 +10,15 @@ class Customer {
 public:
     Customer(std::string name, std::string surname);
 
-    std::string &getName();
+    Customer(const Customer &other);
 
-    std::string &getSurname();
+    Customer(Customer &&other) noexcept;
 
-    void printInfo();
+    const std::string &getName() const;
+
+    const std::string &getSurname() const;
+
+    friend std::ostream &operator<<(std::ostream &os, const Customer &customer);
 };
 
 #endif //RENTCAR_CUSTOMER_H

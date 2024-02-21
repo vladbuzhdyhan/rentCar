@@ -4,10 +4,17 @@
 Customer::Customer(std::string name, std::string surname)
         : _name{name}, _surname{surname} {}
 
-std::string &Customer::getName() { return _name; }
+Customer::Customer(const Customer &other)
+        : _name{other._name}, _surname{other._surname} {}
 
-std::string &Customer::getSurname() { return _surname; }
+Customer::Customer(Customer &&other) noexcept
+        : _name{other._name}, _surname{other._surname} {}
 
-void Customer::printInfo() {
-    std::cout << "Customer`s name: " << _name + ' ' + _surname << std::endl;
+const std::string &Customer::getName() const { return _name; }
+
+const std::string &Customer::getSurname() const { return _surname; }
+
+std::ostream &operator<<(std::ostream &os, const Customer &customer) {
+    os << "Customer`s name: " << customer._name + ' ' + customer._surname << std::endl;
+    return os;
 }
