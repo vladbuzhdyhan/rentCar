@@ -1,6 +1,7 @@
 #ifndef RENTCAR_RENT_H
 #define RENTCAR_RENT_H
 
+#include <ostream>
 #include "Customer.h"
 #include "Car.h"
 
@@ -8,20 +9,27 @@ class Rent {
     Car _rentedCar;
     Customer _customer;
     int _amountOfDays;
+    static int _amountOfRecords;
 public:
     Rent(Car rentedCar, Customer customer);
 
     Rent(Car rentedCar, Customer customer, int amountOfDays);
 
-    int getTheIncome();
+    Rent(const Rent &other);
 
-    Car &getRentedCar();
+    Rent(Rent &&other) noexcept;
 
-    Customer &getCustomer();
+    int getTheIncome() const;
 
-    int getAmountOfDays();
+    const Car &getRentedCar() const;
 
-    void printInfo();
+    const Customer &getCustomer() const;
+
+    int getAmountOfDays() const;
+
+    friend std::ostream &operator<<(std::ostream &os, const Rent &rent);
+
+    ~Rent();
 };
 
 #endif //RENTCAR_RENT_H

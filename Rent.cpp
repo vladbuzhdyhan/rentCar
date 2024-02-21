@@ -1,26 +1,41 @@
 #include <iostream>
 #include "Rent.h"
 
+int Rent::_amountOfRecords = 0;
+
 Rent::Rent(Car rentedCar, Customer customer)
         : Rent{rentedCar, customer, 1} {}
 
 Rent::Rent(Car rentedCar, Customer customer, int amountOfDays)
-        : _rentedCar{rentedCar}, _customer{customer}, _amountOfDays{amountOfDays} {}
+        : _rentedCar{rentedCar}, _customer{customer}, _amountOfDays{amountOfDays} { _amountOfRecords++; }
 
-int Rent::getTheIncome() { return _amountOfDays * _rentedCar.getPriceForADay(); }
+Rent::Rent(const Rent &other)
+        : _rentedCar{other._rentedCar}, _customer{other._customer},
+          _amountOfDays{other._amountOfDays} { _amountOfRecords++; }
 
-Car &Rent::getRentedCar() { return _rentedCar; }
+Rent::Rent(Rent &&other) noexcept
+        : _rentedCar{other._rentedCar}, _customer{other._customer},
+          _amountOfDays{other._amountOfDays} { _amountOfRecords++; }
 
-Customer &Rent::getCustomer() { return _customer; }
+int Rent::getTheIncome() const { return _amountOfDays * _rentedCar.getPriceForADay(); }
 
-int Rent::getAmountOfDays() { return _amountOfDays; }
+const Car &Rent::getRentedCar() const { return _rentedCar; }
 
-void Rent::printInfo() {
-    std::cout << "--------------------\n";
-    std::cout << "Customer: " << _customer.getName() + ' ' + _customer.getSurname() << std::endl;
-    std::cout << "Car model: " << _rentedCar.getModel() << std::endl;
-    std::cout << "Price for a day: " << _rentedCar.getPriceForADay() << std::endl;
-    std::cout << "Amount of days: " << _amountOfDays << std::endl;
-    std::cout << "Income: " << _amountOfDays * _rentedCar.getPriceForADay() << std::endl;
-    std::cout << "--------------------\n";
+const Customer &Rent::getCustomer() const { return _customer; }
+
+int Rent::getAmountOfDays() const { return _amountOfDays; }
+
+std::ostream &operator<<(std::ostream &os, const Rent &rent) {
+    os << "--------------------\n";
+    os << "Customer: " << rent._customer.getName() + ' ' + rent._customer.getSurname() << std::endl;
+    os << "Car model: " << rent._rentedCar.getModel() << std::endl;
+    os << "Price for a day: " << rent._rentedCar.getPriceForADay() << std::endl;
+    os << "Amount of days: " << rent._amountOfDays << std::endl;
+    os << "Income: " << rent.getTheIncome() << std::endl;
+    os << "--------------------\n";
+    return os;
+}
+
+Rent::~Rent() {
+    _amountOfRecords--;
 }
