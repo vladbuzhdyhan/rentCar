@@ -5,6 +5,7 @@
 #include <ostream>
 
 class Customer {
+protected:
     std::string _name;
     std::string _surname;
 public:
@@ -18,7 +19,11 @@ public:
 
     const std::string &getSurname() const;
 
+    Customer &operator=(const Customer &other);
+
     friend std::ostream &operator<<(std::ostream &os, const Customer &customer);
+
+    virtual ~Customer();
 };
 
 #endif //RENTCAR_CUSTOMER_H
