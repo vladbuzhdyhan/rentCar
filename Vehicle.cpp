@@ -19,3 +19,5 @@ Vehicle &Vehicle::operator=(const Vehicle &other) {
     _priceForADay = other._priceForADay;
     return *this;
 }
+
+Vehicle::~Vehicle() {}

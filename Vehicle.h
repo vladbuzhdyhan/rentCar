@@ -23,7 +23,7 @@ public:
 
     Vehicle &operator=(const Vehicle &other);
 
-    virtual ~Vehicle() = 0;
+    virtual ~Vehicle();
 };
 
 #endif //RENTCAR_VEHICLE_H
