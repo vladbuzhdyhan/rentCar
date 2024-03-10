@@ -2,43 +2,24 @@
 #define RENTCAR_CAR_H
 
 #include <string>
+#include "Vehicle.h"
 
-class Car {
-    std::string _model;
-    int _priceForADay;
-    static int _amountOfCars;
+class Car : public Vehicle{
+    int _wheelDiameter;
 public:
-    Car(std::string model);
+    Car(std::string model, int wheelDiameter);
 
-    Car(std::string model, int priceForADay);
+    Car(std::string model, int priceForADay, int wheelDiameter);
 
-    Car(const Car &other);
+    int getPriceForADay() const final;
 
-    Car(Car &&other) noexcept;
+    void printInfo() final;
 
-    const std::string &getModel() const;
-
-    int getPriceForADay() const;
-
-    void setPriceForADay(int priceForADay);
-
-    static int getAmountOfCars();
-
-    Car operator+(int num);
-
-    Car operator-(int num);
-
-    Car operator+=(int num);
-
-    Car operator-=(int num);
+    int getWheelDiameter() const;
 
     Car &operator=(const Car &other);
 
-    friend std::ostream &operator<<(std::ostream &os, const Car &car);
-
-    friend std::istream &operator>>(std::istream &is, Car &car);
-
-    ~Car();
+    ~Car() override;
 };
 
 #endif //RENTCAR_CAR_H
