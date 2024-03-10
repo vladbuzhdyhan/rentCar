@@ -9,4 +9,6 @@ add_executable(rentCar main.cpp
         Customer.cpp
         Customer.h
         Rent.cpp
-        Rent.h)
+        Rent.h
+        Vehicle.cpp
+        Vehicle.h)
