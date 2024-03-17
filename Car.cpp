@@ -50,8 +50,10 @@ Car &Car::operator=(const Car &other) {
 }
 
 std::ostream &operator<<(std::ostream &os, const Car &car) {
+    os << "-----\n";
     os << "Model: " << car._model << std::endl;
     os << "Price for a day: " << car._priceForADay << std::endl;
+    os << "-----\n";
     return os;
 }
 
