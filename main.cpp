@@ -85,6 +85,67 @@ int findInArray(const vector<Car> &carArr, string &search) { //Повернут�
     return -1;
 }
 
+//Методи користувача
+
+void rentCar(const vector<Car> &carArr) { //Орендувати машину
+    int index;
+    do {
+        string model;
+        cout << "Введіть модель машини яку хочете орендувати: ";
+        cin.ignore();
+        getline(cin, model);
+        index = findInArray(carArr, model);
+
+        if (index != -1) {
+            string name;
+            string surname;
+            int amountOfDays;
+
+            cout << "Введіть ім'я та прізвище: ";
+            cin >> name >> surname;
+            cout << "Введіть кількість днів: ";
+            cin >> amountOfDays;
+
+            ofstream rents("rents.txt", ios_base::app);
+            rents << name << endl;
+            rents << surname << endl;
+            rents << carArr[index].getModel() << endl;
+            rents << carArr[index].getPriceForADay() << endl;
+            rents << amountOfDays << endl;
+            rents.close();
+        } else {
+            cout << "Такої машини не існує!\n";
+        }
+    } while (index == -1);
+}
+
+void userPanel() { // Меню користувача
+    bool exit = false;
+    vector<Car> carArr = createCarArray();
+
+    do {
+        cout << "Меню: \n";
+        cout << "Виберіть дію: \n";
+        cout << "1 - Орендувати машину \n";
+        cout << "2 - Подивитись наявні машини \n";
+        cout << "3 - Вийти з програми\n";
+
+        int choice;
+        cin >> choice;
+        switch (choice) {
+            case 1:
+                for (const auto &car: carArr) cout << car;
+                rentCar(carArr);
+                break;
+            case 2:
+                for (const auto &car: carArr) cout << car;
+                break;
+            default:
+                exit = true;
+        }
+    } while (!exit);
+}
+
 //Методи адміністратора
 
 void changePrice(vector<Car> &carArr) { //Поміняти ціну на машину
@@ -266,6 +327,7 @@ int main() {
             loginAdmin();
             break;
         case 2:
+            userPanel();
             break;
     }
 
